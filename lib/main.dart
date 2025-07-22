@@ -13,6 +13,7 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   double availableScreenWidth = 0;
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -152,11 +153,96 @@ class _MainAppState extends State<MainApp> {
                       buildFileColumn('photo', 'image001', '.jpeg'),
                     ],
                   ),
+                  Divider(height: 60),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Projects',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'Create new',
+                        style: TextStyle(
+                          color: Colors.blue.shade700,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  buildProjectsRow('Chatbox'),
+                  buildProjectsRow('TimeNote'),
+                  buildProjectsRow('Notion'),
+                  buildProjectsRow('Developer'),
+                  buildProjectsRow('Documents'),
+                  buildProjectsRow('Photos'),
                 ],
               ),
             ),
           ],
         ),
+        floatingActionButton: Container(
+          decoration: BoxDecoration(shape: BoxShape.circle),
+          child: FloatingActionButton(
+            shape: CircleBorder(),
+            backgroundColor: Colors.blue.shade700,
+            onPressed: () {},
+            child: Icon(Icons.add, color: Colors.white),
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: BottomNavigationBar(
+          onTap: (index) {
+            setState(() {
+              selectedIndex = index;
+            });
+          },
+          selectedItemColor: Colors.blueAccent,
+          currentIndex: selectedIndex,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.access_time),
+              label: 'Time',
+            ),
+            BottomNavigationBarItem(icon: Icon(Icons.add_box), label: 'Folder'),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container buildProjectsRow(String foldername) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 8),
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      height: 65,
+      decoration: BoxDecoration(
+        color: Colors.grey.shade200,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.folder, color: Colors.lightBlueAccent),
+              SizedBox(width: 12),
+              Text(foldername, style: TextStyle(fontSize: 16)),
+            ],
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.more_vert_rounded, color: Colors.grey),
+          ),
+        ],
       ),
     );
   }
