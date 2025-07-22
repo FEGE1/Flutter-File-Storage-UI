@@ -133,9 +133,64 @@ class _MainAppState extends State<MainApp> {
                 ],
               ),
             ),
+            SizedBox(height: 15),
+            Divider(height: 20),
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.all(25),
+                children: [
+                  Text(
+                    'Recently updated',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      buildFileColumn('desktop', 'main', '.py'),
+                      buildFileColumn('desktop', 'pubspec', '.yaml'),
+                      buildFileColumn('photo', 'image001', '.jpeg'),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
+    );
+  }
+
+  Column buildFileColumn(String image, String filename, String extension) {
+    return Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.grey.shade200,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          padding: EdgeInsets.all(30),
+          height: 110,
+          child: Image.asset('assets/images/$image.png'),
+        ),
+        SizedBox(height: 15),
+        RichText(
+          text: TextSpan(
+            text: filename,
+            style: TextStyle(color: Colors.black, fontSize: 14),
+            children: [
+              TextSpan(
+                text: extension,
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w300,
+                  fontSize: 12,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
